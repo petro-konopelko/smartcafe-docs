@@ -39,4 +39,6 @@ SmartCafe streamlines digital menu management and customer ordering for cafes. T
 
 - [Menu](./menu.md)
 - [Orders](./orders.md)
+- [Overview](../00-overview/README.md)
+- [Architecture](../20-architecture/README.md)
 - [Root README](../README.md)

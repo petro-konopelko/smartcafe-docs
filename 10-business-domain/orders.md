@@ -52,4 +52,6 @@ Note: Orders are never deleted. To remove an order from active processing, chang
 ## References
 
 - [Menu](./menu.md)
+- [Business Domain Overview](./README.md)
+- [Order Service Architecture](../20-architecture/order-service.md)
 - [Root README](../README.md)

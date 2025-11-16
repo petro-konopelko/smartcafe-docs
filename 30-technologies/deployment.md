@@ -64,5 +64,7 @@ Key additions:
 
 ## References
 
+- [App Service Deployment](./app-service-deployment.md)
+- [Technologies Overview](./README.md)
 - [Architecture Overview](../20-architecture/README.md)
 - [AKS Desired State](../20-architecture/aks-desired-state.md)

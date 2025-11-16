@@ -31,5 +31,8 @@ SmartCafe is designed with internationalization in mind:
 
 ## References
 
+- [Deployment](./deployment.md)
+- [App Service Deployment](./app-service-deployment.md)
 - [Architecture Overview](../20-architecture/README.md)
 - [Business Domain](../10-business-domain/README.md)
+- [Project Overview](../00-overview/README.md)

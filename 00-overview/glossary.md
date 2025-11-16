@@ -27,3 +27,11 @@ Request made by the customer for one or more menu items.
 
 **Order Status**  
 Represents the current state of an order (e.g., Pending, Accepted, Preparing, Ready, Delivered, Cancelled).
+
+---
+
+## References
+
+- [Overview](./README.md)
+- [MVP](./mvp.md)
+- [Business Domain](../10-business-domain/README.md)

@@ -22,12 +22,13 @@ Key goals:
 
 ## 2. MVP Scope
 
-The Minimum Viable Product (MVP) focuses on the Order Service:
+The Minimum Viable Product (MVP) focuses on the Menu Service first, then the Order Service:
 
-- Customer scans QR code → sees menu → creates an order.
+- Cafes create and manage digital menus via the Menu Service.
+- Customers scan QR code → see menu → create an order.
 - Order is sent to the cafe via the Order Service.
 - Basic order management by the cafe.
-- Menu Service integration is read-only for now.
+- Menu Service publishes events to Order Service for menu changes.
 
 > Future features like split payments or AI suggestions will be added without rewriting core services.
 
@@ -98,4 +99,7 @@ All documentation files are stored in separate folders under the repo root:
 
 - [Glossary](./glossary.md)
 - [MVP](./mvp.md)
+- [Business Domain](../10-business-domain/README.md)
+- [Architecture](../20-architecture/README.md)
+- [Technologies](../30-technologies/README.md)
 - [Root README](../README.md)

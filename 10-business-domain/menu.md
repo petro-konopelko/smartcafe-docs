@@ -63,4 +63,6 @@ Each menu item includes:
 ## References
 
 - [Orders](./orders.md)
+- [Business Domain Overview](./README.md)
+- [Menu Service Architecture](../20-architecture/menu-service.md)
 - [Root README](../README.md)

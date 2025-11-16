@@ -67,4 +67,6 @@ Option B — Azure Static Web Apps (recommended for cost):
 ## References
 
 - [Deployment Overview](./deployment.md)
+- [Technologies Overview](./README.md)
 - [Architecture Overview](../20-architecture/README.md)
+- [Business Domain](../10-business-domain/README.md)

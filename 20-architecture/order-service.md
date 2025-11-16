@@ -138,6 +138,8 @@ stateDiagram-v2
 
 ## References
 
-- [Architecture Overview](README.md)
-- [Menu Service Technical Docs](menu-service.md)
-- [Business Domain](../10-business-domain/orders.md)
+- [Architecture Overview](./README.md)
+- [Menu Service Technical Docs](./menu-service.md)
+- [AKS Desired State](./aks-desired-state.md)
+- [Business Domain - Orders](../10-business-domain/orders.md)
+- [Technologies](../30-technologies/README.md)

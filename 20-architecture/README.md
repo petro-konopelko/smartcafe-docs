@@ -61,6 +61,9 @@ flowchart TD
 
 ## References
 
+- [Menu Service](./menu-service.md)
+- [Order Service](./order-service.md)
+- [AKS Desired State](./aks-desired-state.md)
 - [Project Overview](../00-overview/README.md)
 - [Business Domain](../10-business-domain/README.md)
 - [Technologies](../30-technologies/README.md)

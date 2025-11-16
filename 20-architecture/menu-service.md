@@ -59,6 +59,8 @@ The Menu Service manages digital menus for each cafe, including sections, items,
 
 ## References
 
-- [Architecture Overview](README.md)
-- [Order Service Technical Docs](order-service.md)
-- [Business Domain](../10-business-domain/menu.md)
+- [Architecture Overview](./README.md)
+- [Order Service Technical Docs](./order-service.md)
+- [AKS Desired State](./aks-desired-state.md)
+- [Business Domain - Menu](../10-business-domain/menu.md)
+- [Technologies](../30-technologies/README.md)
