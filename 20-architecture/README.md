@@ -53,7 +53,7 @@ flowchart TD
 ## Key Technologies
 
 - **Backend:** .NET 10 (Clean Architecture)
-- **Frontend:** Angular 20 (Material, Flex Layout)
+- **Frontend:** Angular 20 (Material, Tailwind CSS)
 - **Cloud:** Azure Kubernetes Service (AKS), Azure Blob Storage, Azure ServiceBus
 - **Database:** Azure PostgreSQL or SQL Server
 

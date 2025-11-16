@@ -14,7 +14,7 @@ SmartCafe enables:
 - Real-time order status updates
 - (Future) AI-powered dish recommendations, split payments, and waiter calls
 
-The platform is built using microservices, Azure Kubernetes Service (AKS) for hosting, and Azure Blob Storage for menu images and assets.
+The platform is built using microservices, Angular 20 with Material and Tailwind CSS for the frontend, .NET 10 for backend services, Azure Kubernetes Service (AKS) for hosting, and Azure Blob Storage for menu images and assets.
 
 ---
 
