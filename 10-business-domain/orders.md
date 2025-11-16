@@ -1,161 +1,55 @@
-# SmartCafe — Order Service
 
-This document describes the **Order Service**, which handles customer orders for SmartCafe.  It defines entities, events, and API endpoints for the MVP.
+# Order Service — Business Documentation
 
----
-
-## 1. Service Overview
-
-**Responsibilities:**
-
-* Accept customer orders via API Gateway.
-* Validate orders against the menu (Menu Service data).
-* Maintain order lifecycle: `Created` → `Confirmed` → `Completed`.
-* Notify Restaurant App about new orders.
-* Publish events for other services to consume.
-
-**Events Published:**
-
-* `OrderCreated` — triggered when a new order is placed.
-* `OrderConfirmed` — triggered when the restaurant confirms an order.
-
-**Dependencies:**
-
-* **Menu Service** — to validate menu items and prices.
-* **Restaurant App** — to notify staff.
-* **Payment Service** (future) — for payment processing.
+This document details the business logic and user flows for order placement and management in SmartCafe.
 
 ---
 
-## 2. Core Entities
+## Order Overview
 
-```mermaid
-classDiagram
-    class Order {
-        +string id
-        +string customerId
-        +string restaurantId
-        +string menuId
-        +OrderItem[] items
-        +string status
-        +DateTime createdAt
-        +DateTime updatedAt
-    }
-
-    class OrderItem {
-        +string itemId
-        +int quantity
-    }
-
-    class Customer {
-        +string id
-        +string name
-        +string contactInfo
-    }
-
-    class Restaurant {
-        +string id
-        +string name
-    }
-
-    %% Relationships
-    Customer "1" --> "0..*" Order : places
-    Restaurant "1" --> "0..*" Order : receives
-    Order "1" --> "0..*" OrderItem : contains
-```
-
-**Entity Descriptions:**
-
-* **Order**: Stores order metadata, customer info, menuId, status, and timestamps.
-* **OrderItem**: Tracks individual items in an order (itemId + quantity).
-
-**Relationships:**
-
-* `Order` references `Customer` and `Restaurant` (read-only).
-* `Order` contains multiple `OrderItem`s.
+Customers can open the order page, browse the menu, select items, customize ingredients, and place orders. Orders are processed in real time, with status updates and event-driven backend integration.
 
 ---
 
-## 3. API Endpoints
+## Order Flow
 
-### 3.1 Create Order
+1. Customer opens the order page.
+2. Customer browses menu sections and items.
+3. Customer selects items and customizes ingredients (include/exclude).
+4. Customer reviews order summary and places the order.
+5. System creates the order and sends an event to the backend (via ServiceBus).
+6. Customer receives real-time status updates:
 
-```text
-POST /orders
-```
+- Pending
+- Accepted
+- Preparing
+- Ready
+- Delivered
+- Cancelled
 
-**Request Body:**
-
-```json
-{
-  "customerId": "string",
-  "restaurantId": "string",
-  "menuId": "string",
-  "items": [
-    { "itemId": "string", "quantity": 1 }
-  ]
-}
-```
-
-**Response:**
-
-```json
-{
-  "orderId": "string",
-  "status": "Created",
-  "createdAt": "2025-11-15T00:00:00Z"
-}
-```
-
-### 3.2 Get Order
-
-```text
-GET /orders/{orderId}
-```
-
-**Response:**
-
-```json
-{
-  "orderId": "string",
-  "customerId": "string",
-  "restaurantId": "string",
-  "menuId": "string",
-  "items": [
-    { "itemId": "string", "quantity": 1 }
-  ],
-  "status": "Created",
-  "createdAt": "2025-11-15T00:00:00Z",
-  "updatedAt": "2025-11-15T00:00:00Z"
-}
-```
-
-### 3.3 Update Order Status
-
-```text
-PATCH /orders/{orderId}/status
-```
-
-**Request Body:**
-
-```json
-{
-  "status": "Confirmed"
-}
-```
 
 ---
 
-## 4. Future Enhancements
+## Order Management
 
-* Split payments per customer.
-* Integration with AI recommendation service.
-* Waiter call notifications.
-* Payment service integration.
+- Customers can modify or cancel orders before processing begins.
+- Orders are validated for item availability and business rules.
+- No payment integration in MVP (future feature).
+- Order history is available for customers to review past orders.
+
+Note: Orders are never deleted. To remove an order from active processing, change its status to Cancelled.
 
 ---
 
-## 5. References
+## Eventing & Status Updates
 
-* [Business Domain Overview](./domain-overview.md)
-* [High-Level System Overview](../00-overview/README.md)
+- Order events are sent to the backend using Azure ServiceBus.
+- Real-time status updates are provided to customers via the frontend.
+- Notifications (email, SMS, in-app) are out of scope for MVP.
+
+---
+
+## References
+
+- [Menu](./menu.md)
+- [Root README](../README.md)

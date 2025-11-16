@@ -1,110 +1,66 @@
 
-# SmartCafe — Menu Service
 
-This document describes the **Menu Service**, which manages restaurant menus.  It defines entities, events, and API endpoints for the MVP.
+# Menu Service — Business Documentation
 
----
-
-## 1. Service Overview
-
-**Responsibilities:**
-
-* Store menus and menu items for restaurants.
-* Provide menu data to Order Service via API or events.
-* Maintain menu versions and timestamps.
-* Store menu images in Blob Storage.
-
-**Events Published:**
-
-* `MenuCreated` — triggered when a new menu is added.
-* `MenuUpdated` — triggered when a menu or its items are updated.
-* `MenuDeleted` — triggered when a menu is removed.
-
-**Dependencies:**
-
-* **Blob Storage** — for storing images.
-* **Order Service** — subscribes to menu events.
+This document details the business logic and user flows for menu management in SmartCafe.
 
 ---
 
-## 2. Core Entities
+## Menu Overview
 
-```mermaid
-classDiagram
-    class Menu {
-        +string id
-        +string restaurantId
-        +string name
-        +Item[] items
-        +DateTime updatedAt
-    }
-
-    class Item {
-        +string id
-        +string name
-        +decimal price
-        +string description
-        +string imageUrl
-    }
-
-    class Restaurant {
-        +string id
-        +string name
-    }
-
-    %% Relationships
-    Restaurant "1" --> "0..*" Menu : owns
-    Menu "1" --> "0..*" Item : contains
-```
-
-**Entity Descriptions:**
-
-* **Menu**: Stores menu metadata, restaurantId, items, and updatedAt timestamp.
-* **Item**: Contains item name, price, description, and optional imageUrl.
-
-**Relationships:**
-
-* `Menu` belongs to a `Restaurant`.
-* `Menu` contains multiple `Item`s.
+Cafes create and manage digital menus, which are divided into sections (e.g., breakfast, lunch, dinner). Each section has configurable availability hours and can contain up to 100 items.
 
 ---
 
-## 3. API Endpoints
+## Sections
 
-### 3.1 Get Menu
-
-GET /menus/{restaurantId}
-
-**Response:**
-
-```json
-{
-  "menuId": "string",
-  "restaurantId": "string",
-  "name": "Lunch Menu",
-  "items": [
-    { "itemId": "string", "name": "Cappuccino", "price": 3.5, "imageUrl": "string" }
-  ],
-  "updatedAt": "2025-11-15T00:00:00Z"
-}
-```
-
-### 3.2 Create / Update / Delete Menu
-
-> These endpoints are **admin-only**, for restaurants to manage menus.
-> They will trigger corresponding events (`MenuCreated`, `MenuUpdated`, `MenuDeleted`).
+- Organize menu items by meal type or theme (e.g., breakfast, starters, lunch, dinner)
+- Each section has:
+  - Name
+  - Availability hours (e.g., breakfast: 9:00–13:00)
+  - Up to 100 items
 
 ---
 
-## 4. Future Enhancements
+## Menu Items
 
-* Menu versioning for historical orders.
-* AI recommendations for customers.
-* Dynamic menu pricing and promotions.
+Each menu item includes:
+
+- Name
+- Description
+- Price
+- Images:
+  - Big image (main display)
+  - Cropped image (for fast scrolling)
+  - Default image if none provided
+- Categories (multiple allowed):
+  - Default categories: Vegetarian, Spicy
+  - Additional categories can be configured by the cafe
+  - Each category may have a small icon/image
+- Ingredient customization:
+  - Customers can include or exclude ingredients when ordering
 
 ---
 
-## 5. References
+## Item Management
 
-* [Business Domain Overview](./domain-overview.md)
-* [High-Level System Overview](../00-overview/README.md)
+- Cafes can add, update, or remove items from sections
+- Items must belong to one section and one or more categories
+- Images can be updated or deleted; default image used if none provided
+- Menu preview available before publishing changes
+
+---
+
+## Category Management
+
+- Default categories: Vegetarian, Spicy
+- Cafes can configure additional categories as needed
+- Categories can have small images/icons for visual cues
+- Each item can be assigned multiple categories
+
+---
+
+## References
+
+- [Orders](./orders.md)
+- [Root README](../README.md)
