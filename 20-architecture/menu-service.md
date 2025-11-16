@@ -26,13 +26,32 @@ The Menu Service manages digital menus for each cafe, including sections, items,
 
 ---
 
-## Data Model (Simplified)
+## Data Model (PostgreSQL Schema)
 
-- **Cafe**: id, name, contact info
-- **Menu**: id, cafeId, name, sections[]
-- **Section**: id, menuId, name, availableFrom, availableTo, items[]
-- **Item**: id, sectionId, name, description, price, categories[], imageBigUrl, imageCroppedUrl, ingredientOptions[]
-- **Category**: id, name, iconUrl
+- **Cafe**: id (uuid PK), name, contact_info, created_at
+- **Menu**: id (uuid PK), cafe_id (FK), name, is_active, is_published, published_at, activated_at, is_deleted, created_at, updated_at
+  - **Constraint**: Only one active menu per cafe (unique partial index on cafe_id where is_active = true AND is_deleted = false)
+- **Section**: id (uuid PK), menu_id (FK), name, display_order, available_from, available_to, created_at
+- **MenuItem**: id (uuid PK), section_id (FK), name, description, price, image_big_url, image_cropped_url, ingredient_options (jsonb), is_active, created_at, updated_at
+- **Category**: id (uuid PK), name, icon_url, is_default, created_at
+- **MenuItemCategory**: menu_item_id (uuid FK), category_id (uuid FK) — join table for many-to-many
+
+**Business Rules:**
+- Each cafe can have **multiple menus** (e.g., seasonal menus)
+- Only **one menu is active** at any time
+- Menu states: Draft → Published → Active
+- Must publish before activating
+- Activating a menu automatically deactivates the previous active menu
+- Soft delete for draft menus only (cannot delete published/active menus)
+
+**Technology Stack:**
+- PostgreSQL with Entity Framework Core 10
+- UUID (Guid) primary keys using .NET's `Guid.CreateVersion7()` for time-ordered globally unique identifiers
+- JSONB column type for flexible data (ingredient options)
+- Foreign key constraints for referential integrity
+- Check constraints for business rules (price > 0)
+- Full-text search indexes on item names and descriptions
+- B-tree indexes optimized for UUID queries
 
 ---
 

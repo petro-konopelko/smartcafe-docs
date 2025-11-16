@@ -8,7 +8,25 @@ This document details the business logic and user flows for menu management in S
 
 ## Menu Overview
 
-Cafes create and manage digital menus, which are divided into sections (e.g., breakfast, lunch, dinner). Each section has configurable availability hours and can contain up to 100 items.
+Each cafe can create **multiple menus** (e.g., Summer Menu, Winter Menu, Holiday Special) but only **one menu is active** at a time. This allows cafes to prepare seasonal menus in advance and switch between them as needed.
+
+**Menu States:**
+- **Draft**: Work in progress, not visible to customers
+- **Published**: Ready to be activated, but not currently active
+- **Active**: Currently displayed to customers (only one per cafe)
+
+**Menu Lifecycle:**
+1. Create menu as draft (e.g., "Summer Menu 2025")
+2. Add sections and items
+3. Publish menu (makes it available for activation)
+4. Activate menu (shows to customers, deactivates previous menu)
+5. When season changes, activate different menu (e.g., switch to "Winter Menu")
+
+**Use Cases:**
+- **Seasonal menus**: Summer menu, Winter menu, Spring menu
+- **Holiday specials**: Valentine's Day menu, Christmas menu
+- **Event menus**: Brunch menu, Happy Hour menu
+- **A/B testing**: Test different menu layouts or pricing
 
 ---
 
